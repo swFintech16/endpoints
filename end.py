@@ -3,7 +3,6 @@ from flask import Flask, jsonify, abort, make_response #abort(404)
 from random import randint
 from neoConnector import neo
 from datetime import datetime
-
 app = Flask(__name__)
 
 def checkPhoneNode(phone,name):
@@ -11,9 +10,12 @@ def checkPhoneNode(phone,name):
 	if neoCon.nodeExists(phone,key='phone'): return neoCon.getNode(phone,key='phone')	
 	else:           return neoCon.createNode({'name':name,'phone':phone},labels=['person'])
 
+@app.route('/')
+def t(phone,name):
+	print 'Working'
+
 @app.route('/login/<phone>/<name>')
 def login(phone,name):
-	print 'Login'
 	a = checkPhoneNode(phone,name)
 	return jsonify(name=a.properties['name'],phone=a.properties['phone'])
 
