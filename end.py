@@ -59,9 +59,15 @@ def lendMoney(origin_phone,friend_phone,amount,due_date):
 		'amount':amount,
 		'description':'',
 	}
-
-	if amountMoneyNeeds(friend_phone)>=amount:
+	needs = amountMoneyNeeds(friend_phone)
+	if needs>amount:
 		neoCon.relateNodes(origin,friend,dt,'Lends')
+	elif needs==amount: #SE PAGA LA DEUDA, sigue teniendo gente a quien pagarle
+		neoCon.relateNodes(origin,friend,dt,'Lends')
+		temp = friend.properties
+		temp['amount'] = 0
+		temp['description'] = ''
+		friend.properties = temp
 	else:
 		print 'No necesita tanto dinero'
 	return jsonify(msg='success')
@@ -103,3 +109,4 @@ if __name__ ==  '__main__' :
 	#http://the.rabit.club:5000/contacts/ask/5591011416/3500/Me_Quiero_Comprar_Una_Ipad
 	#Lend Money
 	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
+
