@@ -114,7 +114,6 @@ def payDebt(origin_phone,friend_phone,amount):
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	app.run(host='0.0.0.0') #11633
-	
 	#neoCon.relateNodes(origin,friend,dt,'Pays')
 
 	#LOGIN
