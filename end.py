@@ -150,17 +150,8 @@ def payDebt(origin_phone,friend_phone,amount):
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
-	#app.run(host='0.0.0.0') #11633
+	app.run(host='0.0.0.0') #11633
 
-	origin = neoCon.getNodeById(383)
-	for i in origin.relationships.outgoing(types=['Paga']):
-		temp = i.end.properties
-		temp['status'] = 'Prestamista'
-		for j in i.end.labels:
-			temp["last_name"] = j._label
-			break 
-		temp['amount']+=i.properties['cantidad']
-		print temp
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
