@@ -20,7 +20,7 @@ def login(phone,name):
 	a = checkPhoneNode(phone,name)
 	return jsonify(name=a.properties['name'],phone=a.properties['phone'])
 
-@app.route('/contacts/<originphone>/<originname>/<friendphone>/<friendname>')
+@app.route('/contacts/<origin_phone>/<origin_name>/<friend_phone>/<friend_name>')
 def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR O TRONARA
 	origin = checkPhoneNode(origin_phone,origin_name)
 	friend = checkPhoneNode(friend_phone,friend_name)
@@ -35,7 +35,7 @@ def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR 
 	else:  neoCon.relateNodes(friend,origin,{'since':today},'Knows')
 	return jsonify(msg='success')
 
-@app.route('/contacts/<originphone>/debts/<tophone>/<amount>/<due_date>')
+@app.route('/contacts/<origin_phone>/debts/<friend_phone>/<amount>/<due_date>')
 def addDebt(origin_phone,friend_phone,amount,due_date):
 	origin = checkPhoneNode(origin_phone,origin_name)
 	friend = checkPhoneNode(friend_phone,friend_name)
