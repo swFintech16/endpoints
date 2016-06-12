@@ -9,7 +9,7 @@ def checkPhoneNode(phone,name):
 	phone,name = str(phone), str(name)
 	if '_' in name: name = name.replace('_',' ')
 	if neoCon.nodeExists(phone,key='phone'): return neoCon.getNode(phone,key='phone')	
-	else:           return neoCon.createNode({'name':name,'phone':phone,'amount':0},labels=['person'])
+	else:           return neoCon.createNode({'name':name,'phone':phone,'amount':0,'description':''},labels=['person'])
 
 @app.route('/')
 def t(phone,name):
@@ -66,4 +66,4 @@ def payDebt(origin_phone,friend_phone,amount):
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
-	app.run(host='0.0.0.0') #11633
+	#app.run(host='0.0.0.0') #11633
