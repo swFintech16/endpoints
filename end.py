@@ -52,6 +52,7 @@ def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR 
 def lendMoney(origin_phone,friend_phone,amount,due_date):
 	origin = checkPhoneNode(origin_phone,'Pedro Debt')
 	friend = checkPhoneNode(friend_phone,'Pedro Debt')
+	amount = int(amount)
 	today = datetime.now().strftime("%Y-%m-%d")
 	due_date = due_date.replace('_','-')
 	dt = {
