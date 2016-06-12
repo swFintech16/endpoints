@@ -45,10 +45,6 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 	print neoCon.relateNodes(origin,friend,dt,'Lends')
 	return jsonify(msg='success')
 
-@app.errorhandler(404)
-def not_found():
-	return make_response(jsonify({'error':'not found'}),404)
-
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	app.run(host='0.0.0.0',port='6666') #11633
