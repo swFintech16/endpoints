@@ -14,11 +14,9 @@ def amountMoneyNeeds(phone):
 	k = checkPhoneNode(phone,'Needio Money')
 	am = k.properties['amount']
 	if am<0:
-		for i in k.relationships.incoming():
-			print i
+		for i in k.relationships.incoming(types=["Lends"]):
+			am += i.properties['amount']
 		return am*-1
-
-
 	else: #Es numero verde, el anda prestando
 		print 'No necesita dinero'
 		return 0
@@ -97,15 +95,15 @@ if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	#neoCon.deleteNodeById(5)
 	#neoCon.deleteRelationById(10)
-	app.run(host='0.0.0.0') #11633
+	#app.run(host='0.0.0.0') #11633
 
-	'''k = checkPhoneNode(5591011416,'Needio Money')
+	k = checkPhoneNode(5591011416,'Needio Money')
 	am = k.properties['amount']
 	if am<0:
 		for i in k.relationships.incoming(types=["Lends"]):
-			print i
+			am += i.properties['amount']
 		print am
-	'''
+	
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
