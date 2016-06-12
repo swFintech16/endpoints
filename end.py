@@ -95,3 +95,9 @@ if __name__ ==  '__main__' :
 	#neoCon.deleteNodeById(5)
 	#neoCon.deleteRelationById(10)
 	app.run(host='0.0.0.0') #11633
+
+
+	#LOGIN
+	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
+	#AddFriend , R/A valen madres
+	#http://the.rabit.club:5000/contacts/5591011416/R/5529199527/A
