@@ -1,3 +1,4 @@
+# coding=utf-8
 from flask import Flask, jsonify, abort, make_response #abort(404)
 #from flask.ext.httpauth import HTTPBasicAuth
 from random import randint
@@ -20,7 +21,6 @@ def amountMoneyNeeds(phone):
 	else: #Es numero verde, el anda prestando
 		print 'No necesita dinero'
 		return 0
-
 
 @app.route('/')
 def t(phone,name):
