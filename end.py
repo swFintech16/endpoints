@@ -68,7 +68,7 @@ def askMoney(origin_phone,amount,description):
 	origin = checkPhoneNode(origin_phone,'Updan Mon')
 	temp = origin.properties
 	temp['amount'] = int(amount)*-1
-	temp['description'] = description
+	temp['description'] = description.replace('_',' ')
 	origin.properties = temp
 	return jsonify(msg='success')
 
@@ -101,3 +101,5 @@ if __name__ ==  '__main__' :
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
 	#http://the.rabit.club:5000/contacts/5591011416/R/5529199527/A
+	#ASK money 
+	#http://the.rabit.club:5000/contacts/ask/5591011416/3500/Me_Quiero_Comprar_Una_Ipad
