@@ -92,15 +92,30 @@ def payDebt(origin_phone,friend_phone,amount):
 		'amount':amount,
 		'description':'',
 	}
+	totalDebt = 0
+	for i in origin.relationships.incoming(types=["Lends"]): 
+		if i.start==friend:
+			totalDebt+= i.properties['amount']
+	if totalDebt<amount:
+		neoCon.relateNodes(origin,friend,dt,'Pays')
+		return jsonify(msg='success')
+	elif totalDebt==amount:
+		neoCon.relateNodes(origin,friend,dt,'Pays')
+		
+		for i in origin.relationships.incoming(types=["Lends"]): 
+			if i.start==friend:
+				con.deleteRelationById(i.id) #Borrar deudas con amigo
 
-	neoCon.relateNodes(origin,friend,dt,'Pays')
-
-	return jsonify(msg='success')
+		return jsonify(msg ='Se pago toda la deuda')
+	else:
+		return jsonify(msg='No necesitas pagar tanto dinero')
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	app.run(host='0.0.0.0') #11633
 	
+	#neoCon.relateNodes(origin,friend,dt,'Pays')
+
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
@@ -109,4 +124,10 @@ if __name__ ==  '__main__' :
 	#http://the.rabit.club:5000/contacts/ask/5591011416/3500/Me_Quiero_Comprar_Una_Ipad
 	#Lend Money
 	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
+	#Pay debt
+	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
 
+
+
+
+	
