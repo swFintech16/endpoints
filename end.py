@@ -101,10 +101,11 @@ def payDebt(origin_phone,friend_phone,amount):
 	for i in origin.relationships.outgoing(types=["Pays"]): 
 		if i.end==friend:
 			totalDebt-= i.properties['amount']
- 	print totalDebt
-	if totalDebt>amount:
+ 	
+ 	if totalDebt>amount:
 		neoCon.relateNodes(origin,friend,dt,'Pays')
 		return jsonify(msg='success')
+		
 	elif totalDebt==amount:
 		neoCon.relateNodes(origin,friend,dt,'Pays')
 		for i in origin.relationships.incoming(types=["Lends"]): 
