@@ -222,6 +222,7 @@ class neo():
 			print nodeId
 
 #neoJenkins().dumpAllPaths(25,24)
+'''
 raise
 neoCon = neo(host = 'http://the.rabit.club:7474/')
 from gen import RandomUser
@@ -280,3 +281,4 @@ for i in xrange(0,t):
 		if randint(0,1)==0:
 			neoCon.relateNodes(toN,fromN,{'cantidad':randint(1,2000)},'Paga')
 	print 'Relacionando Familias'
+'''
