@@ -88,14 +88,23 @@ def get_contacts(origin_phone):
 	for i in origin.relationships.outgoing(types=["Conoce"]):
 		temp = i.end.properties
 		temp['status'] = 'Neutro' 
+		for j in i.labels:
+			temp["last_name"] = j._label
+			break
 		response['friends'].append(temp) #Lista de Amigos
 	for i in origin.relationships.outgoing(types=['Paga']):
 		temp = i.end.properties
-		temp['status'] = 'Prestamista' 
+		temp['status'] = 'Prestamista'
+		for j in i.labels:
+			temp["last_name"] = j._label
+			break 
 		response['friends'].append(temp)
 	for i in origin.relationships.outgoing(types=['Presta']):
 		temp = i.end.properties
 		temp['status'] = 'Deudor' 
+		for j in i.labels:
+			temp["last_name"] = j._label
+			break
 		response['friends'].append(temp)
 	return jsonify(response=response)
 
@@ -140,7 +149,6 @@ def payDebt(origin_phone,friend_phone,amount):
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	app.run(host='0.0.0.0') #11633
-	
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
