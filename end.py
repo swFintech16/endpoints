@@ -102,11 +102,9 @@ def payDebt(origin_phone,friend_phone,amount):
 		return jsonify(msg='success')
 	elif totalDebt==amount:
 		neoCon.relateNodes(origin,friend,dt,'Pays')
-		
 		for i in origin.relationships.incoming(types=["Lends"]): 
 			if i.start==friend:
-				con.deleteRelationById(i.id) #Borrar deudas con amigo
-
+				neoCon.deleteRelationById(i.id) #Borrar deudas con amigo
 		return jsonify(msg ='Se pago toda la deuda')
 	else:
 		return jsonify(msg='No necesitas pagar tanto dinero')
