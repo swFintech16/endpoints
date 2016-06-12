@@ -50,7 +50,7 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 	neoCon.relateNodes(origin,friend,dt,'Lends')
 	return jsonify(msg='success')
 
-@app.route('/contacts/<origin_phone>/pays/<friend_phone>/<amount>')
+@app.route('/contacts/<origin_phone>/payments/<friend_phone>/<amount>')
 def payDebt(origin_phone,friend_phone,amount):
 	origin = checkPhoneNode(origin_phone,'ERROR EN PAY DEBT')
 	friend = checkPhoneNode(friend_phone,'ERROR EN PAY DEBT')
