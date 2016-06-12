@@ -98,6 +98,7 @@ def get_contacts(origin_phone):
 		for j in i.end.labels:
 			temp["last_name"] = j._label
 			break 
+		temp['amount']+=i.properties['cantidad']
 		response['friends'].append(temp)
 	for i in origin.relationships.outgoing(types=['Presta']):
 		temp = i.end.properties
@@ -105,6 +106,7 @@ def get_contacts(origin_phone):
 		for j in i.end.labels:
 			temp["last_name"] = j._label
 			break
+		temp['amount']+=i.properties['cantidad']
 		response['friends'].append(temp)
 	return jsonify(response=response)
 
@@ -154,10 +156,11 @@ if __name__ ==  '__main__' :
 	for i in origin.relationships.outgoing(types=['Paga']):
 		temp = i.end.properties
 		temp['status'] = 'Prestamista'
-		for j in i.labels:
+		for j in i.end.labels:
 			temp["last_name"] = j._label
 			break 
-		response['friends'].append(temp)
+		temp['amount']+=i.properties['cantidad']
+		print temp
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
 	#AddFriend , R/A valen madres
