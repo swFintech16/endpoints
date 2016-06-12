@@ -98,8 +98,8 @@ def payDebt(origin_phone,friend_phone,amount):
 	for i in origin.relationships.incoming(types=["Lends"]): 
 		if i.start==friend:
 			totalDebt+= i.properties['amount']
-	for i in origin.relationships.incoming(types=["Pays"]): 
-		if i.start==friend:
+	for i in origin.relationships.outgoing(types=["Pays"]): 
+		if i.end==friend:
 			totalDebt-= i.properties['amount']
  	print totalDebt
 	if totalDebt>amount:
