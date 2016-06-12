@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, abort, make_response #abort(404)
-from flask.ext.httpauth import HTTPBasicAuth
+#from flask.ext.httpauth import HTTPBasicAuth
 from random import randint
 
 app = Flask(__name__)
