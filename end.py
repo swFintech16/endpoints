@@ -47,8 +47,8 @@ def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR 
 	else:  neoCon.relateNodes(friend,origin,{'since':today},'Knows')
 	return jsonify(msg='success')
 
-@app.route('/contacts/<origin_phone>/debts/<friend_phone>/<amount>/<due_date>')
-def addDebt(origin_phone,friend_phone,amount,due_date):
+@app.route('/contacts/<origin_phone>/lend/<friend_phone>/<amount>/<due_date>')
+def lendMoney(origin_phone,friend_phone,amount,due_date):
 	origin = checkPhoneNode(origin_phone,'Pedro Debt')
 	friend = checkPhoneNode(friend_phone,'Pedro Debt')
 	today = datetime.now().strftime("%Y-%m-%d")
@@ -59,7 +59,11 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 		'amount':amount,
 		'description':'',
 	}
-	neoCon.relateNodes(origin,friend,dt,'Lends')
+
+	if amountMoneyNeeds(friend_phone)>=amount:
+		neoCon.relateNodes(origin,friend,dt,'Lends')
+	else:
+		print 'No necesita tanto dinero'
 	return jsonify(msg='success')
 
 
@@ -83,10 +87,7 @@ def payDebt(origin_phone,friend_phone,amount):
 		'description':'',
 	}
 
-	if amountMoneyNeeds(friend_phone)>=amount:
-		neoCon.relateNodes(origin,friend,dt,'Lends')
-	else:
-		print 'No necesita tanto dinero'
+	neoCon.relateNodes(origin,friend,dt,'Pays')
 
 	return jsonify(msg='success')
 
@@ -103,3 +104,5 @@ if __name__ ==  '__main__' :
 	#http://the.rabit.club:5000/contacts/5591011416/R/5529199527/A
 	#ASK money 
 	#http://the.rabit.club:5000/contacts/ask/5591011416/3500/Me_Quiero_Comprar_Una_Ipad
+	#Lend Money
+	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
