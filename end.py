@@ -10,6 +10,18 @@ def checkPhoneNode(phone,name):
 	if '_' in name: name = name.replace('_',' ')
 	if neoCon.nodeExists(phone,key='phone'): return neoCon.getNode(phone,key='phone')	
 	else:           return neoCon.createNode({'name':name,'phone':phone,'amount':0,'description':''},labels=['person'])
+def amountMoneyNeeds(phone):
+	k = checkPhoneNode(phone,'Needio Money')
+	if k.properties['amount']<0:
+		for i in k.relationships.incoming():
+			print i
+
+
+
+	else: #Es numero verde, el anda prestando
+		print 'No necesita dinero'
+		return 0
+
 
 @app.route('/')
 def t(phone,name):
@@ -37,8 +49,8 @@ def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR 
 
 @app.route('/contacts/<origin_phone>/debts/<friend_phone>/<amount>/<due_date>')
 def addDebt(origin_phone,friend_phone,amount,due_date):
-	origin = checkPhoneNode(origin_phone,'ERROR EN ADD DEBT')
-	friend = checkPhoneNode(friend_phone,'ERROR EN ADD DEBT')
+	origin = checkPhoneNode(origin_phone,'Pedro Debt')
+	friend = checkPhoneNode(friend_phone,'Pedro Debt')
 	today = datetime.now().strftime("%Y-%m-%d")
 	due_date = due_date.replace('_','-')
 	dt = {
@@ -50,21 +62,37 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 	neoCon.relateNodes(origin,friend,dt,'Lends')
 	return jsonify(msg='success')
 
+
+@app.route('/contacts/<origin_phone>/<amount>/<description>')
+def updateMoney(origin_phone,amount,description):
+	origin = checkPhoneNode(origin_phone,'Updan Mon')
+	temp = origin.properties
+	temp['amount'] = amount
+	temp['description'] = description
+	origin.properties = temp
+	return jsonify(msg='success')
+
+
 @app.route('/contacts/<origin_phone>/payments/<friend_phone>/<amount>')
 def payDebt(origin_phone,friend_phone,amount):
-	origin = checkPhoneNode(origin_phone,'ERROR EN PAY DEBT')
-	friend = checkPhoneNode(friend_phone,'ERROR EN PAY DEBT')
-
+	origin = checkPhoneNode(origin_phone,'Juan Pay')
+	friend = checkPhoneNode(friend_phone,'Juan Pay')
 	today = datetime.now().strftime("%Y-%m-%d")
 	dt = {
 		'since':today,
 		'amount':amount,
 		'description':'',
 	}
-	neoCon.relateNodes(origin,friend,dt,'Pays')
+
+	if amountMoneyNeeds(friend_phone)>=amount:
+		neoCon.relateNodes(origin,friend,dt,'Lends')
+	else:
+		print 'No necesita tanto dinero'
+
 	return jsonify(msg='success')
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
 	#neoCon.deleteNodeById(5)
+	#neoCon.deleteRelationById(10)
 	app.run(host='0.0.0.0') #11633
