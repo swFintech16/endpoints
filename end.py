@@ -93,16 +93,7 @@ def payDebt(origin_phone,friend_phone,amount):
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
-	#neoCon.deleteNodeById(5)
-	#neoCon.deleteRelationById(10)
-	#app.run(host='0.0.0.0') #11633
-
-	k = checkPhoneNode(5591011416,'Needio Money')
-	am = k.properties['amount']
-	if am<0:
-		for i in k.relationships.incoming(types=["Lends"]):
-			am += i.properties['amount']
-		print am
+	app.run(host='0.0.0.0') #11633
 	
 	#LOGIN
 	#http://the.rabit.club:5000/login/5529199527/Mario_Amador
