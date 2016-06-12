@@ -63,15 +63,14 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 	return jsonify(msg='success')
 
 
-@app.route('/contacts/<origin_phone>/<amount>/<description>')
-def updateMoney(origin_phone,amount,description):
+@app.route('/contacts/ask/<origin_phone>/<amount>/<description>')
+def askMoney(origin_phone,amount,description):
 	origin = checkPhoneNode(origin_phone,'Updan Mon')
 	temp = origin.properties
-	temp['amount'] = amount
+	temp['amount'] = int(amount)*-1
 	temp['description'] = description
 	origin.properties = temp
 	return jsonify(msg='success')
-
 
 @app.route('/contacts/<origin_phone>/payments/<friend_phone>/<amount>')
 def payDebt(origin_phone,friend_phone,amount):
