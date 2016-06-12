@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/login/<number>')
 def getRandomPyme(number):
-	
+	print 'Creado'
 	return jsonify(msg = 'Creado')
 
 @app.errorhandler(404)
