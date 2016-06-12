@@ -9,7 +9,7 @@ def checkPhoneNode(phone,name):
 	phone,name = str(phone), str(name)
 	if '_' in name: name = name.replace('_',' ')
 	if neoCon.nodeExists(phone,key='phone'): return neoCon.getNode(phone,key='phone')	
-	else:           return neoCon.createNode({'name':name,'phone':phone},labels=['person'])
+	else:           return neoCon.createNode({'name':name,'phone':phone,'amount':0},labels=['person'])
 
 @app.route('/')
 def t(phone,name):
