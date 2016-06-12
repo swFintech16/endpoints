@@ -40,6 +40,7 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 	origin = checkPhoneNode(origin_phone,origin_name)
 	friend = checkPhoneNode(friend_phone,friend_name)
 	today = datetime.now().strftime("%Y-%m-%d")
+	due_date = due_date.replace('_','/')
 	dt = {
 		'since':today,
 		'due_date':due_date,
