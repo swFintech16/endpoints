@@ -87,6 +87,7 @@ def payDebt(origin_phone,friend_phone,amount):
 	origin = checkPhoneNode(origin_phone,'Juan Pay')
 	friend = checkPhoneNode(friend_phone,'Juan Pay')
 	today = datetime.now().strftime("%Y-%m-%d")
+	amount = float(amount)
 	dt = {
 		'since':today,
 		'amount':amount,
@@ -96,7 +97,6 @@ def payDebt(origin_phone,friend_phone,amount):
 	for i in origin.relationships.incoming(types=["Lends"]): 
 		if i.start==friend:
 			totalDebt+= i.properties['amount']
-	print totalDebt
 	if totalDebt>amount:
 		neoCon.relateNodes(origin,friend,dt,'Pays')
 		return jsonify(msg='success')
