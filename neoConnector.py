@@ -6,7 +6,7 @@ from requests import post
 import json
 from neo4jrestclient.exceptions import NotFoundError
 from random import choice
-class neoMarkov():
+class neo():
 	def __init__(self,host='http://localhost:7474',usr='neo4j',pwd='neo4j.'):
 		self.payload ={u'Authorization':'Basic %s'%enc('%s:%s'%(usr,pwd)), 'Content-Type':'application/json','Accept':'application/json; charset=UTF-8'}
 		self.host = host
@@ -14,6 +14,9 @@ class neoMarkov():
 	def getNode(self,nodeKey,key='name'):
 		search = Q(key,iexact=nodeKey)
 		return self.gdb.nodes.filter(search)[0]
+	def nodeExists(self,nodeKey,key='name'):
+		search = Q(key,iexact=nodeKey)
+		return len(self.gdb.nodes.filter(search))>0
 	def getNodeById(self,idToLook):
 		return self.gdb.nodes.get(idToLook)
 	def createNode(self,properties,labels=['monex_card','status','korriban']): #Properties es un Dic, label es un texto
@@ -21,10 +24,7 @@ class neoMarkov():
 		new.properties = properties
 		for label in labels: new.labels.add(label)
 		return new
-	def relateNodes(self,fromN,toN,properties,testFinished=True,key='name'):
-		n1 = self.getNode(fromN,key=key)
-		n2 = self.getNode(toN,key=key)		
-		tag = 'Action' if testFinished else 'Development'
+	def relateNodes(self,n1,n2,properties,tag):
 		rel = n1.relationships.create(tag, n2)
 		rel.properties = properties
 		return rel
