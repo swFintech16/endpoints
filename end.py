@@ -37,8 +37,8 @@ def addFriend(origin_phone,origin_name,friend_phone,friend_name): #DEBE EXISTIR 
 
 @app.route('/contacts/<origin_phone>/debts/<friend_phone>/<amount>/<due_date>')
 def addDebt(origin_phone,friend_phone,amount,due_date):
-	origin = checkPhoneNode(origin_phone,origin_name)
-	friend = checkPhoneNode(friend_phone,friend_name)
+	origin = checkPhoneNode(origin_phone,'ERROR EN ADD DEBT')
+	friend = checkPhoneNode(friend_phone,'ERROR EN ADD DEBT')
 	today = datetime.now().strftime("%Y-%m-%d")
 	due_date = due_date.replace('_','/')
 	dt = {
