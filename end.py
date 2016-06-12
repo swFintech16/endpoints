@@ -12,10 +12,11 @@ def checkPhoneNode(phone,name):
 	else:           return neoCon.createNode({'name':name,'phone':phone,'amount':0,'description':''},labels=['person'])
 def amountMoneyNeeds(phone):
 	k = checkPhoneNode(phone,'Needio Money')
-	if k.properties['amount']<0:
+	am = k.properties['amount']
+	if am<0:
 		for i in k.relationships.incoming():
 			print i
-
+		return am
 
 
 	else: #Es numero verde, el anda prestando
