@@ -13,6 +13,7 @@ def checkPhoneNode(phone,name):
 
 @app.route('/login/<phone>/<name>')
 def login(phone,name):
+	print 'Login'
 	a = checkPhoneNode(phone,name)
 	return jsonify(name=a.properties['name'],phone=a.properties['phone'])
 
