@@ -50,4 +50,4 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 
 if __name__ ==  '__main__' :
 	neoCon = neo(host = 'http://the.rabit.club:7474/')
-	app.run(host='0.0.0.0',port='6666') #11633
+	app.run(host='0.0.0.0') #11633
