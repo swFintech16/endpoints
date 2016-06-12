@@ -72,7 +72,6 @@ def lendMoney(origin_phone,friend_phone,amount,due_date):
 		print 'No necesita tanto dinero'
 	return jsonify(msg='success')
 
-
 @app.route('/contacts/ask/<origin_phone>/<amount>/<description>')
 def askMoney(origin_phone,amount,description):
 	origin = checkPhoneNode(origin_phone,'Updan Mon')
@@ -81,6 +80,24 @@ def askMoney(origin_phone,amount,description):
 	temp['description'] = description.replace('_',' ')
 	origin.properties = temp
 	return jsonify(msg='success')
+
+@app.route('/contacts/<origin_phone>')
+def get_contacts(origin_phone):
+	origin = checkPhoneNode(origin_phone,'')
+	response = {'friends':[]}
+	for i in origin.relationships.outgoing(types=["Conoce"]):
+		temp = i.end.properties
+		temp['status'] = 'Neutro' 
+		response['friends'].append(temp) #Lista de Amigos
+	for i in origin.relationships.outgoing(types=['Paga']):
+		temp = i.end.properties
+		temp['status'] = 'Prestamista' 
+		response['friends'].append(temp)
+	for i in origin.relationships.outgoing(types=['Presta']):
+		temp = i.end.properties
+		temp['status'] = 'Deudor' 
+		response['friends'].append(temp)
+	return jsonify(response=response)
 
 @app.route('/contacts/<origin_phone>/payments/<friend_phone>/<amount>')
 def payDebt(origin_phone,friend_phone,amount):
@@ -134,5 +151,6 @@ if __name__ ==  '__main__' :
 	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
 	#Pay debt
 	#http://the.rabit.club:5000/contacts/5591011416/payments/5529199527/100000
-
+	#Get List of Friends /w status
+	#http://the.rabit.club:5000/contacts/5591011416
 
