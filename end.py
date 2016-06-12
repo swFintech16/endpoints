@@ -125,9 +125,9 @@ if __name__ ==  '__main__' :
 	#Lend Money
 	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
 	#Pay debt
-	#http://the.rabit.club:5000/contacts/5529199527/lend/5591011416/400/2016_09_01
+	#http://the.rabit.club:5000/contacts/5591011416/payments/5529199527/100000'
 
 
 
 
-	
+
