@@ -108,6 +108,9 @@ def get_contacts(origin_phone):
 			break
 		temp['amount']+=i.properties['cantidad']
 		response['friends'].append(temp)
+	for i in response['friends']:
+		if i['status']=='Neutro':
+			i['amount']=0
 	return jsonify(response=response)
 
 @app.route('/contacts/<origin_phone>/payments/<friend_phone>/<amount>')
