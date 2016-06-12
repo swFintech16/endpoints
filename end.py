@@ -42,7 +42,7 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 		'amount':amount,
 		'rule':'',
 	}
-	neoCon.relateNodes(origin,friend,dt,'Lends')
+	print neoCon.relateNodes(origin,friend,dt,'Lends')
 	return jsonify(msg='success')
 
 @app.errorhandler(404)
