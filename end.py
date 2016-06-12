@@ -43,6 +43,7 @@ def addDebt(origin_phone,friend_phone,amount,due_date):
 		'rule':'',
 	}
 	neoCon.relateNodes(origin,friend,dt,'Lends')
+	return jsonify(msg='success')
 
 @app.errorhandler(404)
 def not_found():
