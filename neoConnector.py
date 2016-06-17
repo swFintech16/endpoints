@@ -30,13 +30,13 @@ class neo():
 		rel = n1.relationships.create(tag, n2)
 		rel.properties = properties
 		return rel
-	def relateNodeById(self,fromId,toId,properties,testFinished=True):
+	def relateNodeById(self,fromId,toId,properties,tag):
 		n1 = self.getNodeById(fromId)
 		n2 = self.getNodeById(toId)		
-		tag = 'Action' if testFinished else 'Development'
 		rel = n1.relationships.create(tag, n2)
 		rel.properties = properties
 		return rel
+
 	def deleteNodeById(self,nodeId):
 		n1 = self.getNodeById(nodeId)
 		for r in n1.relationships.all(): r.delete()
@@ -221,7 +221,27 @@ class neo():
 			self.deleteNodeById(nodeId)
 			print nodeId
 
+neoCon = neo(host = 'http://the.rabit.club:7474/')
+#neoCon.deleteRelationById(700)
+#neoCon.createNode({'name':'Ruben','phone':5591011416,'amount':-100},labels=['Cuadra']) #393
+#neoCon.createNode({'name':'Dulce','phone':5591011416,'amount':-100},labels=['Villarreal']).id #394
+#neoCon.createNode({'name':'David','phone':5591011416,'amount':100},labels=['Mimila']).id #395
+
+#neoCon.createNode({'name':'Mariana','phone':5591011416,'amount':-2000},labels=['Luna']).id #396
+#neoCon.createNode({'name':'Ralph','phone':5591011416,'amount':2000},labels=['Luna']).id #397
+#neoCon.createNode({'name':'Conejo','phone':5591011416,'amount':0},labels=['Rabit']).id #398
+#neoCon.createNode({'name':'Pedro','phone':5591011416,'amount':-650},labels=['Amador']).id #399
+#neoCon.createNode({'name':'Mario','phone':5591011416,'amount':650},labels=['Amador']).id #400
+
+#neoCon.relateNodeById(399,400,{'cantidad':200},'Paga')
+
+
+'''
+neoCon.relateNodeById(394,395,{'since':'28/05/16'},'amigos')
+neoCon.relateNodeById(395,394,{'since':'28/05/16'},'amigos')
+neoCon.relateNodeById(395,394,{'cantidad':100},'Presta')
 #neoJenkins().dumpAllPaths(25,24)
+'''
 '''
 raise
 neoCon = neo(host = 'http://the.rabit.club:7474/')
